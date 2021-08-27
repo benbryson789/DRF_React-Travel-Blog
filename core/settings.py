@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-r0j*cd*rptm$aui+t1w+va#umv+@kpoiapa7q2oqg*+j8i!&hy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['secure-brook-03932.herokuapp.com']
+ALLOWED_HOSTS = ["https://secure-brook-03932.herokuapp.com/"]
 
 
 # Application definition
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': "blog",
     }
 }
