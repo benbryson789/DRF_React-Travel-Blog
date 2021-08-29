@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-r0j*cd*rptm$aui+t1w+va#umv+@kpoiapa7q2oqg*+j8i!&hy
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
-#CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'blog',
     'blog_api',
     'rest_framework',
-    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -51,10 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 ]
-#CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
 
 ROOT_URLCONF = 'core.urls'
 
@@ -83,11 +79,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST':'ec2-44-197-40-76.compute-1.amazonaws.com',
-        'NAME': "d9o5u78ma88s5k",
-        "USER":'krnodbhwxqdzlc',
-        "PASSWORD":"7a09decf971b3bc24499cf3b052bf6aeb74c6470ea40bc2bbdfed87de05a3ce4",
-        "PORT":"5432",
+        'NAME': "blog",
     }
 }
 
@@ -133,31 +125,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 # media settings
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL   = '/media/'
 #
-""" REST_FRAMEWORK = {
+REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ]
-} """
+}
 
-
-
-CORS_ORIGIN_WHITELIST = [
-    'https://secure-brook-03932.herokuapp.com',
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-]
-
-
-# CORS_ALLOWED_ORIGIN_REGEXES = [
-# r"^https://\w+\.localhost:3000.*$",
-# ]
-# CORS_URLS_REGEX = r'^/api/.*$'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

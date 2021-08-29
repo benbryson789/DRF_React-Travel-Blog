@@ -1,18 +1,17 @@
 from django.shortcuts import render
 import requests
-from .models import Post
+# Create your views here.
+# def blogList(request):
+#     context = {}
+#     posts = requests.get('http://127.0.0.1:8000/api?format=json');
+#     context['posts'] = posts.json()
+#     return render(request,'blog/index.html',context)
 from django.views import generic
-def blogList(request):
-    context = {}
-    posts = requests.get('http://127.0.0.1:8000/api?format=json');
-    context['posts'] = posts.json()
-    return render(request,'blog/index.html',context)
+from .models import Post
 
-# from django.views import generic
-# from .models import Post
-# class PostList(generic.ListView):
-#     queryset = Post.objects.all()
-#     template_name = 'blog/index.html'
+class PostList(generic.ListView):
+    queryset = Post.objects.all()
+    template_name = 'blog/index.html'
 
 def postlist(request):
     post = Post.objects.all()
