@@ -6,7 +6,7 @@ const About = () =>{
 return (
     <>
     <NavBar />
-    <h1>About</h1>
+    <h1>ABOUT MY BLOG</h1>
 
     <Footer />
     </>
