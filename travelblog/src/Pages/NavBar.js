@@ -22,6 +22,9 @@ return (
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/contact');}}>Contact</a>
                         </li>
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/map');}}>Map</a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import About from './Pages/About';
 import Contact from './Pages/Contact';
 import Policy from './Pages/Policy';
 import BlogDetails from './Pages/Blog-details';
+import Map from './Pages/Map';
 function App() {
   return (
     <Router>
@@ -15,6 +16,7 @@ function App() {
             <Route exact path="/about"><About /></Route>
             <Route exact path="/contact"><Contact /></Route>
             <Route exact path="/policy"><Policy /></Route>
+            <Route exact path="/map"><Map /></Route>
             <Route exact path="/:slug"><BlogDetails /></Route>
         </Switch>
   </Router>

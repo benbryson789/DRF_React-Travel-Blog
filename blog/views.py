@@ -43,3 +43,6 @@ def policy(request):
 
 def contact(request):
     return render(request,"blog/contact.html",{})
+
+def map(request):
+    return render(request,"blog/map.html",{})

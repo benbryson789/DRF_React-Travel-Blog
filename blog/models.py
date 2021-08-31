@@ -4,6 +4,7 @@ from django.utils import timezone
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.CharField(max_length=100,default="0")
     
     #string rep that idenditfies data item returned from datatbase which is name
     def  __str__(self):
@@ -24,6 +25,7 @@ class Post(models.Model):
     options = (
         ('draft', 'Draft'),
         ('published', "Published"),
+        ('pending', "Pending"),
     )
 
 
