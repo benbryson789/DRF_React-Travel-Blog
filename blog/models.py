@@ -4,6 +4,7 @@ from django.utils import timezone
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.CharField(max_length=100,default="0")
     
     #string rep that idenditfies data item returned from datatbase which is name
     def  __str__(self):
@@ -24,6 +25,7 @@ class Post(models.Model):
     options = (
         ('draft', 'Draft'),
         ('published', "Published"),
+        ('pending', "Pending"),
     )
 
 
@@ -54,4 +56,14 @@ class Post(models.Model):
         #returns title by defualt for any data returned
         def __str__(self):
             return self.title    
+
+class Maps(models.Model):
+    travel_advisory = models.CharField(max_length=255)
+    advisory_level = models.CharField(max_length=255)
+    date = models.DateTimeField(default=timezone.now)
+    latitute = models.CharField(max_length=50)
+    location_name = models.CharField(max_length=255,default="")
+    longtittude  = models.CharField(max_length=50)
+
+
 

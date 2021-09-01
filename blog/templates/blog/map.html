@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %} {% block content %}
+<div>
+
+    <p><iframe src="https://www.google.com/maps/d/embed?mid=1YtXI1aKBkTLC5fLcUe4wWW3VoNM&hl=en" width="640" height="480"></iframe></p>
+  
+  </div>
+
+  <div>
+    <div id="mapdata" style="display:none">{{mapsData}}</div>
+<div id="map" style="width:100%;height:450px"></div>
+    <p><iframe src="https://travel.state.gov/_res/rss/TAsTWs.xml"width="640" height="480"></iframe></p>
+  
+  </div>
+  <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+  <script>
+   function mapLoad(){ 
+      var locations = JSON.parse(document.getElementById('mapdata').innerHTML);
+    
+var map = new google.maps.Map(document.getElementById('map'), {
+zoom: 10,
+center: new google.maps.LatLng(locations[0][2], locations[0][3]),
+mapTypeId: google.maps.MapTypeId.ROADMAP
+});
+
+var infowindow = new google.maps.InfoWindow();
+
+var marker, i;
+
+for (i = 0; i < locations.length; i++) {  
+marker = new google.maps.Marker({
+  position: new google.maps.LatLng(locations[i][2], locations[i][3]),
+  map: map
+});
+
+google.maps.event.addListener(marker, 'click', (function(marker, i) {
+  return function() {
+   var htmlData = "<b>Travel Advisory :</b>"+locations[i][0]+"<br/><b>Advisory Level:</b>"+locations[i][1]+"<br/><b>Location:</b>"+locations[i][4];
+    infowindow.setContent(htmlData);
+    infowindow.open(map, marker);
+  }
+})(marker, i));
+}
+  }
+setTimeout(function(){mapLoad();},1000);
+  </script>
+  {% endblock %}

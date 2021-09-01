@@ -9,3 +9,6 @@ class AuthorAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title', ), }
 
     admin.site.register(models.Category)
+@admin.register(models.Maps)
+class MapsAdmin(admin.ModelAdmin):
+    list_display = ('travel_advisory', 'id')
