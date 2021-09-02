@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %} {% block content %}
+<div>
+<form action= "" method="post">
+    <p>
+        <label>Search Type</label>
+        <select name="type">
+            <option value="restaurant">Restaurant</option>
+            <option value="school">School</option>
+            <option value="hospital">Hospital</option>
+
+        </select>
+    </p>
+    <p>
+        <label>Radius</label>
+        <select name="radius">
+            <option value="10">10</option>
+            <option value="100">100</option>
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+        </select>
+    </p>
+    <p>
+        <label>Location</label>
+        <input type="text" name="location" required/>
+        </p>
+        <p>
+            <label>Keyword</label>
+            <input type="text" name="keyword"/>
+            </p>
+            {% csrf_token %}
+            <p><button type="submit">Search</button></p>
+</form>
+{% for place in places %}
+<b>{{place}}</b><br/>
+{% endfor %}
+
+
+    </div>
+    {% endblock %}

@@ -56,3 +56,21 @@ def map(request):
 
 def cdc(request):
     return render(request,"blog/cdc.html",{})
+def rearest_of_you(request):
+    context={}
+    context['places'] = {}
+    #check for form submission with post aand then code will execute
+    if request.method == 'POST':
+        api_key = 'AIzaSyAInX0_Rk6nMsqubmBSAxqrm1BjemVP47E'
+        url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key="+api_key+"&"
+        url += 'type='+request.POST.get('type')+"&"
+        url += 'radius='+request.POST.get('radius')+"&"
+        url += 'location='+request.POST.get('location')+"&"
+        url += 'query='+request.POST.get('keyword')
+        r = requests.get(url)
+        result = r.json() 
+        y = result['results']
+        for i in range(len(y)):
+            context['places'][y[i]['name']] = y[i]['name']
+            print(context['places']) 
+    return render(request,'blog/rearest.html',context)    

@@ -11,8 +11,5 @@ urlpatterns = [
     path('about',views.about, name= 'about'),
     path('policy',views.policy, name= 'policy'),
     path('contact',views.contact, name= 'contact'),
-    path('map',views.map, name= 'map'),
-    path('cdc',views.cdc, name= 'cdc'),
-    path('nearest-places',views.rearest_of_you, name= 'rearest'),
     path('<slug:slug>/', views.postDetail, name='post_detail'),
 ]
