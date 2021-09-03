@@ -28,6 +28,9 @@ return (
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/cdc');}}>CDC</a>
                         </li>
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/nearest-places');}}>Nearest Places</a>
+                        </li>
                     </ul>
                 </div>
             </div>
