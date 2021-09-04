@@ -1,2 +1,7 @@
 django
 djangorestframework
+gunicorn
+django-cors-headers
+requests
+psycopg2
+psycopg2-binary

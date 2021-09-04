@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/debrashelby/Desktop/DRF/DRF_React-Travel-Blog/venv"
+VIRTUAL_ENV="/Users/debrashelby/Desktop/DRF/newproject/DRF_React-Travel-Blog/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

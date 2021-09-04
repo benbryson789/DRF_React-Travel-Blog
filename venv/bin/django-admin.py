@@ -1,4 +1,4 @@
-#!/Users/debrashelby/Desktop/DRF/venv/bin/python3
+#!/Users/debrashelby/Desktop/DRF/newproject/DRF_React-Travel-Blog/venv/bin/python3
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
