@@ -7,7 +7,7 @@ import Sidebar from './Sidebar';
 const Home = () =>{
     const[blogList,setBlogList] = useState([]);
     const history = useHistory();
-
+    // const[filter,setFilter] = useState(false);
     useEffect(()=>{
         fetch('http://127.0.0.1:8000/api/?format=json', )
         .then(response=> response.json())

@@ -14,5 +14,6 @@ urlpatterns = [
     path('map',views.map, name= 'map'),
     path('cdc',views.cdc, name= 'cdc'),
     path('nearest-places',views.rearest_of_you, name= 'rearest'),
+    path('google_api',views.google_api_callig, name= 'google_api_callig'),
     path('<slug:slug>/', views.postDetail, name='post_detail'),
 ]

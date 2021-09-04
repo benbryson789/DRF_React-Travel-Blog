@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render
 import requests
 from .models import Post,Maps
@@ -73,4 +74,15 @@ def rearest_of_you(request):
         for i in range(len(y)):
             context['places'][y[i]['name']] = y[i]['name']
             print(context['places']) 
-    return render(request,'blog/rearest.html',context)    
+    return render(request,'blog/rearest.html',context) 
+def google_api_callig(request):
+        api_key = 'AIzaSyAInX0_Rk6nMsqubmBSAxqrm1BjemVP47E'
+        url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key="+api_key+"&"
+        url += 'type='+request.GET.get('type')+"&"
+        url += 'radius='+request.GET.get('radius')+"&"
+        url += 'location='+request.GET.get('location')+"&"
+        url += 'query='+request.GET.get('keyword')
+        r = requests.get(url)
+        result = r.json() 
+        print(result)
+        return JsonResponse(result)
