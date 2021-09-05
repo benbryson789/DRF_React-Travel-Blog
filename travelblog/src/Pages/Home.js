@@ -9,7 +9,7 @@ const Home = () =>{
     const history = useHistory();
     // const[filter,setFilter] = useState(false);
     useEffect(()=>{
-        fetch('http://127.0.0.1:8000/api/?format=json', )
+        fetch('https://protected-scrubland-37279.herokuapp.com/api/?format=json', )
         .then(response=> response.json())
         .then(data=>{ setBlogList(data)})
         .catch(err=> alert("API Error"))
