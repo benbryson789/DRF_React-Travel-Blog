@@ -66,8 +66,8 @@ def rearest_of_you(request):
         url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key="+api_key+"&"
         url += 'type='+request.POST.get('type')+"&"
         url += 'radius='+request.POST.get('radius')+"&"
-        url += 'location='+request.POST.get('location')+"&"
-        url += 'query='+request.POST.get('keyword')
+        # url += 'location='+request.POST.get('location')+"&"
+        url += 'query='+request.POST.get('keyword') + ' in ' + +request.POST.get('location')
         r = requests.get(url)
         result = r.json() 
         y = result['results']
@@ -76,6 +76,9 @@ def rearest_of_you(request):
             print(context['places']) 
     return render(request,'blog/rearest.html',context) 
 def google_api_callig(request):
+    # AIzaSyAInX0_Rk6nMsqubmBSAxqrm1BjemVP47E
+
+    # AIzaSyD4GC-KQEnuxWa-QszhV5h4-4dodTG5nWg
         api_key = 'AIzaSyAInX0_Rk6nMsqubmBSAxqrm1BjemVP47E'
         url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key="+api_key+"&"
         url += 'type='+request.GET.get('type')+"&"

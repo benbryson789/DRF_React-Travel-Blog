@@ -13,11 +13,14 @@ return (
   
   </div>
 
-  <div>
+  {/* <div>
 
     <p><iframe title ="MAP" src="https://www.state.gov/developer/geoPoliticalArea.json"width="640" height="480"></iframe></p>
   
-  </div>
+  </div> */}
+  
+
+  
 
     <Footer />
     </>
