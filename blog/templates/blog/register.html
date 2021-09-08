@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+        
+	
+	<form method="POST" class="web-form">
+		<h1>Register</h1>
+		{% csrf_token %}
+        {{register_form}}
+        <div class="form-btn">
+		<button class="btn btn-primary" type="submit">Register</button>
+        </div>
+		<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+	</form>
+	
+</div>
+</div>
+</div>
+{% endblock %}

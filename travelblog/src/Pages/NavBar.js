@@ -31,6 +31,12 @@ return (
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/nearest-places');}}>Nearest Places</a>
                         </li>
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/login');}}>Login</a>
+                        </li>
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/register');}}>Register</a>
+                        </li>
                     </ul>
                 </div>
             </div>

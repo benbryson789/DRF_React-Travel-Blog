@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
-CORS_ALLOWED_ORIGINS = ['https://react-travelblog.herokuapp.com/']
+CORS_ALLOWED_ORIGINS = ['https://react-travelblog.herokuapp.com', 'http://localhost:8000', 'http://localhost:3000']
 
 ROOT_URLCONF = 'core.urls'
 

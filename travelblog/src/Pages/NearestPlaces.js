@@ -7,7 +7,8 @@ const[formData,setFormData] = useState({type:'restaurant',radius:10,location:'',
 const[searchPlaces,setSearchPlaces] = useState([]);
 console.log("searchPlaces",searchPlaces);
 const searchPlacesFn = ()=>{
-    let url = 'https://protected-scrubland-37279.herokuapp.com/google_api?';
+    //let url = 'https://protected-scrubland-37279.herokuapp.com/google_api?';
+    let url = 'http://127.0.0.1:8000/google_api?';
     url += 'type='+formData.type+'&';
     url += 'radius='+formData.radius+"&";
     url += "location="+formData.location+"&";

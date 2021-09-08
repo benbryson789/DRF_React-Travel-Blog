@@ -1,9 +1,13 @@
 from django.http.response import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 import requests
 from .models import Post,Maps
 from django.views import generic
 import json
+from .forms import NewUserForm
+from django.contrib.auth import login,logout,authenticate
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
 def blogList(request):
     context = {}
     posts = requests.get('http://127.0.0.1:8000/api?format=json');
@@ -89,3 +93,43 @@ def google_api_callig(request):
         result = r.json() 
         print(result)
         return JsonResponse(result)
+def registration(request):
+    context = {}
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful." )
+            return redirect("/")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+    form = NewUserForm()
+    context['register_form'] = form
+    return render(request,'blog/register.html',context)
+def logout_request(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.") 
+    return redirect("/")
+def login_request(request):
+    if request.user.is_authenticated:
+        return redirect("/")
+    context = {}
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}.")
+                return redirect("/")
+            else:
+                messages.error(request,"Invalid username or password.")
+        else:
+            messages.error(request,"Invalid username or password.")
+    form = AuthenticationForm()
+    context['login_form'] = form
+    return render(request,'blog/login.html',context)
+
+

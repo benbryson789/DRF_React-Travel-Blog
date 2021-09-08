@@ -8,6 +8,7 @@ urlpatterns = [
     # path('', TemplateView.asview(template_name="blog/index.html")),
     #path('', TemplateView.as_view(template_name="blog/index.html"),name="home"),
     path('', views.postlist, name='home'),
+    path("login/", views.login_request, name="login"),
     path('about',views.about, name= 'about'),
     path('policy',views.policy, name= 'policy'),
     path('contact',views.contact, name= 'contact'),
@@ -16,4 +17,7 @@ urlpatterns = [
     path('nearest-places',views.rearest_of_you, name= 'rearest'),
     path('google_api',views.google_api_callig, name= 'google_api_callig'),
     path('<slug:slug>/', views.postDetail, name='post_detail'),
+    path("register", views.registration, name="register"),
+    path("logout", views.logout_request, name= "logout"),
+    
 ]

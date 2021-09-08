@@ -32,6 +32,25 @@
             box-shadow: 0 16px 48px #E3E7EB;
             padding-top: 10px;
         }
+        .web-form input,.web-form label{
+            display: block;
+        }
+        .web-form label{font-weight: bold; margin-top: 10px;}
+        form.web-form {
+    max-width: 60%;
+    margin: 40px auto 0;
+    background: #eee;
+    padding: 25px;
+    border-radius: 5px;
+}
+
+form.web-form input {
+    width: 100%;
+    padding: 7px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    margin-bottom: 15px;
+}
     </style>
 
         <!-- Navigation -->
@@ -60,6 +79,18 @@
                     <li class="nav-item text-black">
                         <a class="nav-link text-black font-weight-bold" href="{% url 'blog:cdc' %}">CDC</a>
                     </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item text-black">
+                        <a class="nav-link text-black font-weight-bold" href="{% url 'blog:logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item text-black">
+                        <a class="nav-link text-black font-weight-bold" href="{% url 'blog:login' %}">Login</a>
+                    </li>
+                    <li class="nav-item text-black">
+                        <a class="nav-link text-black font-weight-bold" href="{% url 'blog:register' %}">Register</a>
+                    </li>
+                    {% endif %}
                     </ul>
                 </div>
             </div>

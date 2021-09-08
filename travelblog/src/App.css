@@ -6,7 +6,25 @@
   height: 40vmin;
   pointer-events: none;
 }
+.web-form input,.web-form label{
+  display: block;
+}
+.web-form label{font-weight: bold; margin-top: 10px;}
+form.web-form {
+max-width: 60%;
+margin: 40px auto 0;
+background: #eee;
+padding: 25px;
+border-radius: 5px;
+}
 
+form.web-form input {
+width: 100%;
+padding: 7px;
+border: 1px solid #ddd;
+border-radius: 2px;
+margin-bottom: 15px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
