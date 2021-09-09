@@ -9,6 +9,8 @@ urlpatterns = [
     #path('', TemplateView.as_view(template_name="blog/index.html"),name="home"),
     path('', views.postlist, name='home'),
     path("login/", views.login_request, name="login"),
+    path("api-login", views.api_login_request, name="api_login_request"),
+    path("api-register", views.api_register_request, name="api_register_request"),
     path('about',views.about, name= 'about'),
     path('policy',views.policy, name= 'policy'),
     path('contact',views.contact, name= 'contact'),

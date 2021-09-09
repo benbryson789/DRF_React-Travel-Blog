@@ -8,6 +8,7 @@ from .forms import NewUserForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 def blogList(request):
     context = {}
     posts = requests.get('http://127.0.0.1:8000/api?format=json');
@@ -93,6 +94,7 @@ def google_api_callig(request):
         result = r.json() 
         print(result)
         return JsonResponse(result)
+
 def registration(request):
     context = {}
     if request.method == "POST":
@@ -106,10 +108,23 @@ def registration(request):
     form = NewUserForm()
     context['register_form'] = form
     return render(request,'blog/register.html',context)
+def api_register_request(request):
+    response = {"status":0}
+    uname = request.GET.get("u")
+    email=request.GET.get("e")
+    passwd = request.GET.get("p")
+    if User.objects.filter(username=uname).exists():
+        return JsonResponse(response)
+    if User.objects.filter(email=email).exists():
+        return JsonResponse(response) 
+    user = User.objects.create_user(username=uname,email=email,password=passwd)
+    response ={"status":1}
+    return JsonResponse(response)
 def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.") 
     return redirect("/")
+    
 def login_request(request):
     if request.user.is_authenticated:
         return redirect("/")
@@ -132,4 +147,14 @@ def login_request(request):
     context['login_form'] = form
     return render(request,'blog/login.html',context)
 
-
+def api_login_request(request):
+    response = {"status":0}
+    username = request.GET.get("username")
+    password = request.GET.get("password")
+    print(username)
+    print(password)
+    user = authenticate(username=username,password=password)
+    if user is not None:
+        print("kay commint")
+        response = {"status":1}
+    return JsonResponse(response)

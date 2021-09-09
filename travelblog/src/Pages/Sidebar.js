@@ -6,8 +6,8 @@ return (
 <div class="card my-4">
         <h5 class="card-header">About Us</h5>
     <div class="card-body">
-        <p class="card-text"> This awesome blog is made on the top of our Favourite full stack Framework 'Django', follow up the tutorial to learn how we made it..!</p>
-        <a href="https://djangocentral.com/building-a-blog-application-with-django"
+        <p class="card-text"> This awesome blog has fascinating travel stories</p>
+        <a href="https://www.travelonthereg.com/travel-stories/"
            class="btn btn-danger">Know more!</a>
     </div>
 </div>

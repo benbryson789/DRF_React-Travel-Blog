@@ -31,12 +31,18 @@ return (
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/nearest-places');}}>Nearest Places</a>
                         </li>
-                        <li class="nav-item text-black">
+                        { localStorage.getItem("loginStatus")  === 'null'?
+                        <><li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/login');}}>Login</a>
                         </li>
                         <li class="nav-item text-black">
                             <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); history.push('/register');}}>Register</a>
+                        </li></>
+                        :
+                        <li class="nav-item text-black">
+                            <a class="nav-link text-black font-weight-bold" href="/" onClick={(e)=>{e.preventDefault(); localStorage.setItem("loginStatus",'null'); history.push('/login');}}>Logout</a>
                         </li>
+                        }
                     </ul>
                 </div>
             </div>
