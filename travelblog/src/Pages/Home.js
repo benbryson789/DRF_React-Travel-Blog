@@ -3,8 +3,7 @@ import { useHistory } from 'react-router-dom';
 import Footer from './Footer';
 import NavBar from './NavBar';
 import Sidebar from './Sidebar';
-
-// const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com/api/?format=json";
+ const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com/api/?format=json";
 const BACKENDURLLOCAL = "http://localhost:8000/api/?format=json"
 
 const Home = () =>{
@@ -12,7 +11,7 @@ const Home = () =>{
     const history = useHistory();
     // const[filter,setFilter] = useState(false);
     useEffect(()=>{
-        fetch(BACKENDURLLOCAL)
+        fetch(BACKENDURL)
         .then(response=> response.json())
         .then(data=>{ setBlogList(data)})
         .catch(err=> alert("API Error"))

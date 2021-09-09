@@ -8,7 +8,9 @@ const Login = () => {
     const[formData,setFormData] = useState({username:'',password:''});
     const handleLogin = ()=>{
         if(formData.username === "" || formData.password === ""){ alert("Please fill required field!"); return false;}
-        let url= "http://127.0.0.1:8000/api-login?username="+formData.username+"&password="+formData.password;
+        const BACKENDURLLOCAL = "http://localhost:8000";
+        const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com";
+        let url= BACKENDURL+"/api-login?username="+formData.username+"&password="+formData.password;
         fetch(url)
         .then(response=>response.json())
         .then((data)=>{
