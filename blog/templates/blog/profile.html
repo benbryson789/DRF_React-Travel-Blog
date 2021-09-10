@@ -1,0 +1,57 @@
+{% extends 'blog/base.html' %} {% block content %}
+<div class="container profilePage">
+	<div class="row">
+		<div class="col-md-3 ">
+		<div class="list-group ">
+            <a href="/profile" class="list-group-item list-group-item-action active">  Profile</a>
+            <a href="/change-password" class="list-group-item list-group-item-action">Change Password</a>
+            <a href="/manage-blogs" class="list-group-item list-group-item-action">Blogs</a>
+            <a href="/logout" class="list-group-item list-group-item-action">Logout</a>
+        </div> 
+		</div>
+		<div class="col-md-9">
+		    <div class="card">
+		        <div class="card-body">
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <h4>Your Profile</h4>
+		                    <hr>
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <form method="post">
+                              <div class="form-group row">
+                                <label for="name" class="col-4 col-form-label">First Name</label> 
+                                <div class="col-8">
+                                  <input id="name" name="name" placeholder="First Name" value="{{request.user.first_name}}" class="form-control here" type="text">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label for="lastname" class="col-4 col-form-label">Last Name</label> 
+                                <div class="col-8">
+                                  <input id="lastname" name="lastname" placeholder="Last Name" value="{{request.user.last_name}}" class="form-control here" type="text">
+                                </div>
+                              </div>
+                            <div class="form-group row">
+                                <label for="email" class="col-4 col-form-label">Email*</label> 
+                                <div class="col-8">
+                                  <input id="email" name="email" placeholder="Email" class="form-control here" value="{{request.user.email}}" required="required" type="text">
+                                </div>
+                              </div>
+                                <div class="form-group row">
+                                <div class="offset-4 col-8">
+                                  {% csrf_token %}
+                                  <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                                </div>
+                              </div>
+                            </form>
+		                </div>
+		            </div>
+		            
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>
+{% endblock %}

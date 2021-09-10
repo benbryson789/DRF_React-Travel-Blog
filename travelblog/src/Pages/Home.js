@@ -25,8 +25,8 @@ return (
         <div class="row">
             <div class=" col-md-8 col-md-10 mx-auto">
                 <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Blog </h3>
-                    <p class="text-light">We Love Django As much as you do..! &nbsp
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Travel Blog </h3>
+                    <p class="text-light">I love traveling As much as you do..! &nbsp
                     </p>
                 </div>
             </div>
@@ -37,6 +37,7 @@ return (
     <div class="row">
     
         <div class="col-md-8 mt-3 left">
+            {/* looping thru post by index like 0,1,3,4 etc */}
             {blogList.map((post,index)=>(
             <div class="card mb-4" key={index}>
                 <div class="row">
@@ -45,6 +46,7 @@ return (
                     <h2 class="card-title">{post.title}</h2>
                     <p class="card-text text-muted h6">{post.author } | { post.published} </p>
                     <p class="card-text">{post.excerpt}</p>
+                    {/* click read more button view more info about post */}
                     <a href="/" onClick={(e)=>{e.preventDefault(); history.push("/"+post.id); }} class="btn btn-primary">Read More &rarr;</a>
                 </div>
                 </div>

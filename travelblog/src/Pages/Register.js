@@ -5,9 +5,11 @@ import NavBar from './NavBar'
 
 const Register = () => {
     const history = useHistory();
+    //getting value from register form from form which is in register.js
     const[formData,setFormData] = useState({username:'',email:'',password1:'',password2:''});
     const handleRegister = ()=>{
         console.log(formData);
+        
         if(formData.username === "" || formData.email === "" || formData.password1 === "" || formData.password2 === ""){
             alert("Please fill all required field");
             return false;

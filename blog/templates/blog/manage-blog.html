@@ -1,0 +1,71 @@
+{% extends 'blog/base.html' %} {% block content %}
+<div class="container profilePage">
+	<div class="row">
+		<div class="col-md-3 ">
+		<div class="list-group ">
+            <a href="/profile" class="list-group-item list-group-item-action">  Profile</a>
+            <a href="/change-password" class="list-group-item list-group-item-action">Change Password</a>
+            <a href="/manage-blogs" class="list-group-item list-group-item-action active">Blogs</a>
+            <a href="/logout" class="list-group-item list-group-item-action">Logout</a>
+        </div> 
+		</div>
+		<div class="col-md-9">
+		    <div class="card">
+		        <div class="card-body">
+		            <div class="row">
+		                <div class="col-md-9">
+		                    <h4>My Blogs</h4>
+                            </div>
+                            <div class="col-md-3 text-right">
+                            <a href="/manage-blogs/add" class="btn btn-primary">Add New </a>
+		                   
+		                </div>
+                      <div class="col-md-12">  <hr></div>
+		            </div>
+
+		            <div class="row">
+		                <div class="col-md-12">
+                            <article>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <figure>
+                                            <img src="https://neilpatel.com/wp-content/uploads/2018/10/blog.jpg">
+                                        </figure>
+                                    </div>
+                                    <div class="col-sm-6 col-md-8">
+                                         <h4>Raymond Dragon</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                                        <section>
+                                            <a href="#" class="btn btn-primary">Edit </a>
+                                            <a href="#" class="btn btn-danger">Delete </a>
+                                        </section>
+                                    </div>
+                                </div>
+                            </article>
+                            <article>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <figure>
+                                            <img src="https://image.shutterstock.com/image-photo/bloggingblog-concepts-ideas-white-worktable-260nw-1029506242.jpg">
+                                        </figure>
+                                    </div>
+                                    <div class="col-sm-6 col-md-8">
+                                         <h4>Raymond Dragon</h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                                        <section>
+                                            <a href="#" class="btn btn-primary">Edit </a>
+                                            <a href="#" class="btn btn-danger">Delete </a>
+                                        </section>
+                                    </div>
+                                </div>
+                            </article>
+
+		                </div>
+		            </div>
+		            
+		        </div>
+		    </div>
+		</div>
+	</div>
+</div>
+{% endblock %}

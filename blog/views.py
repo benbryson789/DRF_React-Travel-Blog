@@ -62,6 +62,7 @@ def map(request):
 
 def cdc(request):
     return render(request,"blog/cdc.html",{})
+
 def rearest_of_you(request):
     context={}
     context['places'] = {}
@@ -80,6 +81,7 @@ def rearest_of_you(request):
             context['places'][y[i]['name']] = y[i]['name']
             print(context['places']) 
     return render(request,'blog/rearest.html',context) 
+
 def google_api_callig(request):
     # AIzaSyAInX0_Rk6nMsqubmBSAxqrm1BjemVP47E
 
@@ -123,7 +125,7 @@ def api_register_request(request):
 def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.") 
-    return redirect("/")
+    return redirect("/login")
     
 def login_request(request):
     if request.user.is_authenticated:
@@ -148,13 +150,61 @@ def login_request(request):
     return render(request,'blog/login.html',context)
 
 def api_login_request(request):
+    # if response is 0/false username and password is incorrect
+    #returns a response of 0
     response = {"status":0}
     username = request.GET.get("username")
     password = request.GET.get("password")
-    print(username)
-    print(password)
+    # print(username)
+    # print(password)
+    # if username and password is correct rtns response1/true 
+    # 
     user = authenticate(username=username,password=password)
     if user is not None:
-        print("kay commint")
+        # print("kay commint")
         response = {"status":1}
     return JsonResponse(response)
+def profilePage(request):
+    if request.user.is_authenticated == False:
+        return redirect("/login")
+    context = {}
+    print(request.user.id)
+    if request.method == "POST":
+        user = User.objects.get(pk=request.user.id)
+        user.first_name = request.POST.get('name')
+        user.last_name = request.POST.get("lastname")
+        user.email = request.POST.get("email")
+        user.save()
+        return redirect("/profile")
+    return render(request,"blog/profile.html",context)    
+def changePasswordPage(request):
+    if request.user.is_authenticated == False:
+        return redirect("/login")   
+    context = {}
+    if request.method == "POST":
+        passwd = request.POST.get("password")
+        cpasswd = request.POST.get("cpassword")
+        if passwd != cpasswd:
+            messages.error(request,"Password should be same!")
+            return redirect("/change-password")
+        user = User.objects.get(pk=request.user.id)
+        user.set_password(passwd)
+        user.save()
+        messages.success(request,"Successfully updated password")
+        return redirect("/change-password")
+    return render(request,"blog/changepassword.html",context)    
+def myBlogPage(request):
+    if request.user.is_authenticated == False:
+        return redirect("/login") 
+    context = {}
+    return render(request,"blog/manage-blog.html",context) 
+def addBlogPage(request):
+    if request.user.is_authenticated == False:
+        return redirect("/login") 
+    context = {}
+    return render(request,"blog/add-blog.html",context) 
+def editBlogPage(request):
+    if request.user.is_authenticated == False:
+        return redirect("/login") 
+    context = {}
+    return render(request,"blog/edit-blog.html",context)   
