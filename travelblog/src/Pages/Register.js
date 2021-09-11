@@ -18,9 +18,12 @@ const Register = () => {
             alert("Password1 and Password2 should be the same !");
             return false;
         }
+
         const BACKENDURLLOCAL = "http://localhost:8000";
-        const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com";
-        let url = BACKENDURL+"/api-register?u="+formData.username+"&e="+formData.email+"&p="+formData.password1;
+        //const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com";
+        
+        
+        let url = BACKENDURLLOCAL+"/api-register?u="+formData.username+"&e="+formData.email+"&p="+formData.password1;
         fetch(url)
         .then(response=>response.json())
         .then((data)=>{

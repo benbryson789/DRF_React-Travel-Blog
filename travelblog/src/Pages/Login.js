@@ -12,9 +12,9 @@ const Login = () => {
         //if we never enter any field value we are writing message "please fill in field"
         if(formData.username === "" || formData.password === ""){ alert("Please fill required field!"); return false;}
         const BACKENDURLLOCAL = "http://localhost:8000";
-        const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com";
+        //const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com";
         //if user enters username and password we are sending via query string from react to django for authentication
-        let url= BACKENDURL+"/api-login?username="+formData.username+"&password="+formData.password;
+        let url= BACKENDURLLOCAL +"/api-login?username="+formData.username+"&password="+formData.password;
         fetch(url)
         .then(response=>response.json())
         .then((data)=>{

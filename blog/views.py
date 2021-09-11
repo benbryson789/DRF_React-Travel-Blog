@@ -9,6 +9,7 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 def blogList(request):
     context = {}
     posts = requests.get('http://127.0.0.1:8000/api?format=json');
@@ -27,12 +28,13 @@ def postlist(request):
         "post_list":post
 
     }
+    # home url
     return render(request,'blog/index.html',context)
 
-class PostDetail(generic.DetailView):
+# class PostDetail(generic.DetailView):
 
-    model = Post
-    template_name = 'blog/post_detail.html'
+#     model = Post
+#     template_name = 'blog/post_detail.html'
 
 def postDetail(request,slug):
     post = Post.objects.get(slug = slug)
@@ -40,6 +42,7 @@ def postDetail(request,slug):
     context = {
         "post": post
     }
+    # post detail url
     return render(request,'blog/post_detail.html', context)
 
 def about(request):
@@ -51,6 +54,12 @@ def policy(request):
 def contact(request):
     return render(request,"blog/contact.html",{})
 
+def cdc(request):
+    return render(request,"blog/cdc.html",{})
+
+def sidebar(request):
+    return render(request,"blog/sidebar.html",{})
+
 def map(request):
     mapsData = []
     mapObject = Maps.objects.all()
@@ -60,10 +69,8 @@ def map(request):
     context['mapsData'] = json.dumps(mapsData)
     return render(request,"blog/map.html",context)
 
-def cdc(request):
-    return render(request,"blog/cdc.html",{})
 
-def rearest_of_you(request):
+def nearest_of_you(request):
     context={}
     context['places'] = {}
     #check for form submission with post aand then code will execute
@@ -80,7 +87,7 @@ def rearest_of_you(request):
         for i in range(len(y)):
             context['places'][y[i]['name']] = y[i]['name']
             print(context['places']) 
-    return render(request,'blog/rearest.html',context) 
+    return render(request,'blog/nearest.html',context) 
 
 def google_api_callig(request):
     # AIzaSyAInX0_Rk6nMsqubmBSAxqrm1BjemVP47E
@@ -122,6 +129,7 @@ def api_register_request(request):
     user = User.objects.create_user(username=uname,email=email,password=passwd)
     response ={"status":1}
     return JsonResponse(response)
+
 def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.") 
@@ -142,9 +150,9 @@ def login_request(request):
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect("/")
             else:
-                messages.error(request,"Invalid username or password.")
+                messages.warning(request,"Invalid username or password.")
         else:
-            messages.error(request,"Invalid username or password.")
+            messages.warning(request,"Invalid username or password.")
     form = AuthenticationForm()
     context['login_form'] = form
     return render(request,'blog/login.html',context)
@@ -175,6 +183,7 @@ def profilePage(request):
         user.last_name = request.POST.get("lastname")
         user.email = request.POST.get("email")
         user.save()
+        messages.success(request,"Successfully updated profile information")
         return redirect("/profile")
     return render(request,"blog/profile.html",context)    
 def changePasswordPage(request):
@@ -185,7 +194,7 @@ def changePasswordPage(request):
         passwd = request.POST.get("password")
         cpasswd = request.POST.get("cpassword")
         if passwd != cpasswd:
-            messages.error(request,"Password should be same!")
+            messages.warning(request,"Password should be same!")
             return redirect("/change-password")
         user = User.objects.get(pk=request.user.id)
         user.set_password(passwd)
@@ -197,14 +206,67 @@ def myBlogPage(request):
     if request.user.is_authenticated == False:
         return redirect("/login") 
     context = {}
+    # gets current user  that is logged in
+    user = User.objects.get(pk=request.user.id)
+    # get blog created by current user  an
+    context['blogs'] = Post.objects.filter(author=user).all()
     return render(request,"blog/manage-blog.html",context) 
 def addBlogPage(request):
     if request.user.is_authenticated == False:
         return redirect("/login") 
+    # after submit button is clicked lines 215-223 will activate
+    if request.method == "POST":
+        data = request.POST
+        # myfile returns all data of image
+        myfile = request.FILES['file']
+        # then call django method FileSystemStorage() to upload files
+        fs = FileSystemStorage()
+        # saved fs file in fileName by calling fs.save method//name is the name picture displayed on blog output
+        fileName = fs.save(myfile.name,myfile)
+        # created a new blog using Post.objects and passing all parameters
+        Post.objects.create(title=data.get("title"),content=data.get("content"),excerpt=data.get("excerpt"),author=request.user,image=fileName)
+        messages.success(request,"Successfully created a new blog")
+        return redirect("/manage-blogs")
     context = {}
+    # rendering the new blog form
     return render(request,"blog/add-blog.html",context) 
-def editBlogPage(request):
+def editBlogPage(request,id):
+    # if user not logged in/authenticated rediret login page
     if request.user.is_authenticated == False:
-        return redirect("/login") 
+        return redirect("/login")
+    if request.method == "POST":
+        data = request.POST
+        # myfile returns all data of image
+        fileName =""
+        # if new image chosen code will render/if no image chosen code will goto obj=post.objects.get(id=id) and will all data except images
+        if request.FILES:
+            myfile = request.FILES['file']
+            # then call django method FileSystemStorage() to upload files
+            fs = FileSystemStorage()
+            # saved fs file in fileName by calling fs.save method//name is the name picture displayed on blog output
+            fileName = fs.save(myfile.name,myfile)
+        obj = Post.objects.get(id=id)
+        # if file name is blank no image chosen
+        # if file name is not blank  then obj.image will not update
+        # all other data will be updated if image is chosen
+        if fileName != "":
+            obj.image = fileName
+        obj.title = data.get("title")
+        obj.content = data.get("content")
+        obj.excerpt = data.get("excerpt")
+        obj.save()
+
+        messages.success(request,"Succesfully updated your blog")
+        return redirect("/manage-blogs")
     context = {}
-    return render(request,"blog/edit-blog.html",context)   
+    # if user is logged in  get blog list by id  and then store list in context variable
+    # and then return render blog edit page
+    context['blog'] = Post.objects.get(id=id)
+    return render(request,"blog/edit-blog.html",context) 
+def deleteBlogPage(request,id):
+    # delect blog by id
+    obj = Post.objects.get(id=id)
+    obj.delete()
+    # return messages on status bar
+    messages.warning(request,"Succesffully deleted!")
+    return redirect("/manage-blogs")

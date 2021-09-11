@@ -4,14 +4,16 @@ import Footer from './Footer';
 import NavBar from './NavBar';
 import Sidebar from './Sidebar';
 
-const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com"
+//const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com"
+const BACKENDURLLOCAL = "http://localhost:8000/api/?format=json"
+
 
 const BlogDetails = () =>{
     const[object,setObject] = useState({});
     const params = useParams();
     console.log('params',params);
     useEffect(()=>{
-        fetch(BACKENDURL + '/api/'+params.slug+'/?format=json')
+        fetch(BACKENDURLLOCAL + '/api/'+params.slug+'/?format=json')
         .then(response=> response.json())
         .then(data=>{ setObject(data)})
         .catch(err=> alert("API Error"))

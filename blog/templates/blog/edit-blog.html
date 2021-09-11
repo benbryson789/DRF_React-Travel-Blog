@@ -20,29 +20,34 @@
 		            </div>
 		            <div class="row">
 		                <div class="col-md-12">
-		                    <form method="post">
+		                    <form method="post" enctype="multipart/form-data">
                               <div class="form-group row">
                                 <label for="name" class="col-4 col-form-label">Title</label> 
                                 <div class="col-8">
-                                  <input  name="title"  class="form-control here" type="text">
+                                  <input  name="title"  class="form-control here" type="text" value="{{blog.title}}">
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label for="lastname" class="col-4 col-form-label">Excerpt</label> 
                                 <div class="col-8">
-                                  <textarea name="excerpt" class="form-control here"></textarea>
+                                  <textarea name="excerpt" class="form-control here">{{blog.excerpt}}</textarea>
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label for="lastname" class="col-4 col-form-label">Content</label> 
                                 <div class="col-8">
-                                  <textarea name="content" class="form-control here"></textarea>
+                                  <textarea name="content" class="form-control here">{{blog.content}}</textarea>
                                 </div>
                               </div>
                               <div class="form-group row">
                                 <label for="name" class="col-4 col-form-label">Image</label> 
                                 <div class="col-8">
                                   <input id="name" name="file"  class="form-control here" type="file">
+                                  <!-- if image is uploaded for the blog then image shown -->
+                                  {% if blog.image != "" %}
+                                    <img src ="/media/{{blog.image}}" style="width:100px;height:100px"/>
+                                  {% endif %}
+                                    {% csrf_token %}
                                 </div>
                               </div>
 

@@ -11,5 +11,6 @@ urlpatterns = [
     path('about',views.about, name= 'about'),
     path('policy',views.policy, name= 'policy'),
     path('contact',views.contact, name= 'contact'),
+    path('sidebar',views.sidebar, name= 'sidebar'),
     path('<slug:slug>/', views.postDetail, name='post_detail'),
 ]

@@ -25,46 +25,32 @@
 
 		            <div class="row">
 		                <div class="col-md-12">
+                            <!-- created loop for all blog lists and then it rendered @ manage.blog-html -->
+                            {% for blog in blogs%}
                             <article>
                                 <div class="row">
                                     <div class="col-sm-6 col-md-4">
                                         <figure>
-                                            <img src="https://neilpatel.com/wp-content/uploads/2018/10/blog.jpg">
+                                            <img src="/media/{{blog.image}}">
                                         </figure>
                                     </div>
                                     <div class="col-sm-6 col-md-8">
-                                         <h4>Raymond Dragon</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+                                         <h4>{{ blog.title}}</h4>
+                                        <p>{{blog.excerpt}}</p>
                                         <section>
-                                            <a href="#" class="btn btn-primary">Edit </a>
-                                            <a href="#" class="btn btn-danger">Delete </a>
+                                            <a href="/manage-blogs/edit/{{blog.id}}" class="btn btn-primary">Edit </a>
+                                            <a href="/manage-blogs/delete/{{blog.id}}" class="btn btn-danger">Delete </a>
                                         </section>
                                     </div>
                                 </div>
                             </article>
-                            <article>
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-4">
-                                        <figure>
-                                            <img src="https://image.shutterstock.com/image-photo/bloggingblog-concepts-ideas-white-worktable-260nw-1029506242.jpg">
-                                        </figure>
-                                    </div>
-                                    <div class="col-sm-6 col-md-8">
-                                         <h4>Raymond Dragon</h4>
-                                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                                        <section>
-                                            <a href="#" class="btn btn-primary">Edit </a>
-                                            <a href="#" class="btn btn-danger">Delete </a>
-                                        </section>
-                                    </div>
-                                </div>
-                            </article>
-
-		                </div>
-		            </div>
-		            
-		        </div>
-		    </div>
+                            {% endfor %}
+                        
+                        </div>
+                </div>
+                        
+                </div>
+            </div>
 		</div>
 	</div>
 </div>

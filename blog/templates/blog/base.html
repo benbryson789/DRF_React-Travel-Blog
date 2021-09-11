@@ -105,15 +105,22 @@ form.web-form input {
                     <li class="nav-item text-black">
                         <a class="nav-link text-black font-weight-bold" href="{% url 'blog:register' %}">Register</a>
                     </li>
+                    <li class="nav-item text-black">
+                        <a class="nav-link text-black font-weight-bold" href="{% url 'blog:sidebar' %}">Sidebar</a>
+                    </li>
                     {% endif %}
                     </ul>
                 </div>
             </div>
         </nav>
+        <!-- check if  messages passed. if passed then it will display "messages" -->
+        <!-- displays messages in status bar -->
         {% if messages %}
         <ul class="messages">
+            <!-- if message is deleted then the status will change color to yellow and if message is succes the bar color will chage to green -->
+            <!-- line 9 of bootstrap code determines color -->
             {% for message in messages %}
-                <li class="alert alert-info">{{message}}</li>
+                <li class="alert {% if message.tags %}alert-{{message.tags}} {% endif %}">{{message}}</li>
             {% endfor %}
         </ul>
         {% endif %}

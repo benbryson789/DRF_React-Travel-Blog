@@ -42,3 +42,6 @@ def policy(request):
 
 def contact(request):
     return render(request,"blog/contact.html",{})
+
+def sidebar(request):
+    return render(request,"blog/sidebar.html",{})

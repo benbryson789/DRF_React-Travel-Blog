@@ -48,3 +48,6 @@ def map(request):
 
 def cdc(request):
     return render(request,"blog/cdc.html",{})
+
+def sidebar(request):
+    return render(request,"blog/sidebar.html",{})
