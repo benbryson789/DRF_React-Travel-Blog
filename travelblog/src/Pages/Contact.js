@@ -6,28 +6,28 @@ const Contact = () =>{
 return (
     <>
     <NavBar />
-    <div class="container">
+    <div className="container">
 <form>
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="name" class="form-control" id="name" placeholder="name"/>
+    <div className="form-group">
+        <label >Name</label>
+        <input type="name" className="form-control" id="name" placeholder="name"/>
       </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <div className="form-group">
+      <label >Email address</label>
+      <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+      <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
-    <div class="form-group">
-      <label for="subject">Subject</label>
-      <input type="subject" class="form-control" id="subject" placeholder="subjec"/>
+    <div className="form-group">
+      <label >Subject</label>
+      <input type="subject" className="form-control" id="subject" placeholder="subjec"/>
     </div>
-    <div class="form-group">
-        <label for="message">Message</label>
-        <input type="message" class="form-control" id="message" placeholder="message"/>
+    <div className="form-group">
+        <label >Message</label>
+        <input type="message" className="form-control" id="message" placeholder="message"/>
       </div>
     <div>
 
-    <a href="https://www.google.com/" class="btn btn-info" role="button">Submit</a>
+    <a href="https://www.google.com/" className="btn btn-info" role="button">Submit</a>
   
     </div>
 

@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import Footer from "./Footer";
 import NavBar from "./NavBar";
-//import axios from "axios";
+import { API_PATH } from './API';
 const NearestPlaces = ()=>{
 const[formData,setFormData] = useState({type:'restaurant',radius:10,location:'',keyword:''});
 const[searchPlaces,setSearchPlaces] = useState([]);
 console.log("searchPlaces",searchPlaces);
 const searchPlacesFn = ()=>{
-    //let url = 'https://protected-scrubland-37279.herokuapp.com/google_api?';
-    let url = 'http://127.0.0.1:8000/google_api?';
+    let url = API_PATH+'google_api?';
+// passing parameters in url according to formData
     url += 'type='+formData.type+'&';
     url += 'radius='+formData.radius+"&";
     url += "location="+formData.location+"&";
     url += "keyword="+formData.keyword;
     fetch(url)
     .then(res=> res.json())
+    // setting response datat in state
     .then((data)=>{ setSearchPlaces(data['results'])})
     .catch(err=>console.log("error"))
 }
@@ -22,14 +23,14 @@ const searchPlacesFn = ()=>{
     return(
         <>
         <NavBar />
-        <header class="masthead">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row">
-                        <div class=" col-md-8 col-md-10 mx-auto">
-                            <div class="site-heading">
-                                <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Blog </h3>
-                                <p class="text-light">We Love Django As much as you do..! &nbsp
+        <header className="masthead">
+                <div className="overlay"></div>
+                <div className="container">
+                    <div className="row">
+                        <div className=" col-md-8 col-md-10 mx-auto">
+                            <div className="site-heading">
+                                <h3 className=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Blog </h3>
+                                <p className="text-light">We Love Django As much as you do..! &nbsp
                                 </p>
                             </div>
                         </div>
@@ -38,10 +39,10 @@ const searchPlacesFn = ()=>{
             </header>
             <div className="container">
                 <div className="row">
-                <div class="col-md-4">
-                    <div class="card my-4">
-                            <h5 class="card-header">Search Your Nearest Places</h5>
-                        <div class="card-body">
+                <div className="col-md-4">
+                    <div className="card my-4">
+                            <h5 className="card-header">Search Your Nearest Places</h5>
+                        <div className="card-body">
                 <form method="post" action="">
             <p className="form-group">
                 {/* form lines 27-34 */}
@@ -95,16 +96,16 @@ const searchPlacesFn = ()=>{
                 <p className="form-group"><button type="button" className={" btn btn-primary"} onClick={searchPlacesFn}>Search Nearest Places</button></p>
         </form>
         </div></div></div>
-        <div class="col-md-8 ">
+        <div className="col-md-8 ">
             <h2>Search Result: </h2>
         {searchPlaces && searchPlaces.map((obj,index)=>(
-                    <div class="card mb-4" key={index}>
-                    <div class="row">
-                        <div class="col-md-4"> <img src={ obj.icon  } alt=""/></div><div class="col-md-8">
-                    <div class="card-body">
-                        <h2 class="card-title">{obj.name}</h2>
-                        <p class="card-text text-muted h6"><label>Rating: </label>{ obj.rating} </p>
-                        <p class="card-text"><label>Address: </label>{obj.formatted_address}</p>
+                    <div className="card mb-4" key={index}>
+                    <div className="row">
+                        <div className="col-md-4"> <img src={ obj.icon  } alt=""/></div><div className="col-md-8">
+                    <div className="card-body">
+                        <h2 className="card-title">{obj.name}</h2>
+                        <p className="card-text text-muted h6"><label>Rating: </label>{ obj.rating} </p>
+                        <p className="card-text"><label>Address: </label>{obj.formatted_address}</p>
                     </div>
                     </div>
                     </div>

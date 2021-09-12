@@ -10,6 +10,8 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
+
+# django home page function
 def blogList(request):
     context = {}
     posts = requests.get('http://127.0.0.1:8000/api?format=json');
@@ -22,6 +24,7 @@ def blogList(request):
 #     queryset = Post.objects.all()
 #     template_name = 'blog/index.html'
 
+# rendering data of postlist of all blogs
 def postlist(request):
     post = Post.objects.all()
     context = {
@@ -36,6 +39,7 @@ def postlist(request):
 #     model = Post
 #     template_name = 'blog/post_detail.html'
 
+# post detail from blog model/click on read more button
 def postDetail(request,slug):
     post = Post.objects.get(slug = slug)
     print(post)
@@ -59,17 +63,20 @@ def cdc(request):
 
 def sidebar(request):
     return render(request,"blog/sidebar.html",{})
-
+    
 def map(request):
-    mapsData = []
-    mapObject = Maps.objects.all()
-    for obj in mapObject:
-        mapsData.append([obj.travel_advisory,obj.advisory_level,obj.latitute,obj.longtittude,obj.location_name])
-    context = {}
-    context['mapsData'] = json.dumps(mapsData)
-    return render(request,"blog/map.html",context)
+    return render(request,"blog/map.html",{})
 
+# def map(request):
+#     mapsData = []
+#     mapObject = Maps.objects.all()
+#     for obj in mapObject:
+#         mapsData.append([obj.travel_advisory,obj.advisory_level,obj.latitute,obj.longtittude,obj.location_name])
+#     context = {}
+#     context['mapsData'] = json.dumps(mapsData)
+#     return render(request,"blog/map.html",context)
 
+# django nearest
 def nearest_of_you(request):
     context={}
     context['places'] = {}
@@ -79,8 +86,8 @@ def nearest_of_you(request):
         url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key="+api_key+"&"
         url += 'type='+request.POST.get('type')+"&"
         url += 'radius='+request.POST.get('radius')+"&"
-        # url += 'location='+request.POST.get('location')+"&"
-        url += 'query='+request.POST.get('keyword') + ' in ' + +request.POST.get('location')
+        url += 'location='+request.POST.get('location')+"&"
+        url += 'query='+request.POST.get('keyword') 
         r = requests.get(url)
         result = r.json() 
         y = result['results']
@@ -88,7 +95,7 @@ def nearest_of_you(request):
             context['places'][y[i]['name']] = y[i]['name']
             print(context['places']) 
     return render(request,'blog/nearest.html',context) 
-
+# api nearest search for react
 def google_api_callig(request):
     # AIzaSyAInX0_Rk6nMsqubmBSAxqrm1BjemVP47E
 
@@ -115,10 +122,14 @@ def registration(request):
             return redirect("/")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
+    # forms.py
     context['register_form'] = form
     return render(request,'blog/register.html',context)
+
+# register new user in react/api react
 def api_register_request(request):
     response = {"status":0}
+    # passed variables in register.js of username(u), email(e), password(p)
     uname = request.GET.get("u")
     email=request.GET.get("e")
     passwd = request.GET.get("p")
@@ -129,12 +140,14 @@ def api_register_request(request):
     user = User.objects.create_user(username=uname,email=email,password=passwd)
     response ={"status":1}
     return JsonResponse(response)
-
+    
+# django logout
 def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.") 
     return redirect("/login")
-    
+
+# django login page
 def login_request(request):
     if request.user.is_authenticated:
         return redirect("/")
@@ -142,6 +155,7 @@ def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
+            # clearing the data for html page//clean data<t>USername</t>
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
@@ -157,6 +171,7 @@ def login_request(request):
     context['login_form'] = form
     return render(request,'blog/login.html',context)
 
+# django api for react for login
 def api_login_request(request):
     # if response is 0/false username and password is incorrect
     #returns a response of 0
@@ -169,9 +184,12 @@ def api_login_request(request):
     # 
     user = authenticate(username=username,password=password)
     if user is not None:
-        # print("kay commint")
-        response = {"status":1}
+        #  if response status is 1 successful login and return user id
+        # refers to local storage in login.js for user id
+        response = {"status":1,"id":user.id}
     return JsonResponse(response)
+    
+# update profile page in django/Your Profile section
 def profilePage(request):
     if request.user.is_authenticated == False:
         return redirect("/login")
@@ -186,6 +204,8 @@ def profilePage(request):
         messages.success(request,"Successfully updated profile information")
         return redirect("/profile")
     return render(request,"blog/profile.html",context)    
+
+# django change password in profile
 def changePasswordPage(request):
     if request.user.is_authenticated == False:
         return redirect("/login")   
@@ -202,6 +222,8 @@ def changePasswordPage(request):
         messages.success(request,"Successfully updated password")
         return redirect("/change-password")
     return render(request,"blog/changepassword.html",context)    
+
+# My Blog Secton
 def myBlogPage(request):
     if request.user.is_authenticated == False:
         return redirect("/login") 
@@ -211,6 +233,8 @@ def myBlogPage(request):
     # get blog created by current user  an
     context['blogs'] = Post.objects.filter(author=user).all()
     return render(request,"blog/manage-blog.html",context) 
+
+# django addnew blog
 def addBlogPage(request):
     if request.user.is_authenticated == False:
         return redirect("/login") 
@@ -230,6 +254,8 @@ def addBlogPage(request):
     context = {}
     # rendering the new blog form
     return render(request,"blog/add-blog.html",context) 
+
+# edit blog page in django
 def editBlogPage(request,id):
     # if user not logged in/authenticated rediret login page
     if request.user.is_authenticated == False:
@@ -263,6 +289,8 @@ def editBlogPage(request,id):
     # and then return render blog edit page
     context['blog'] = Post.objects.get(id=id)
     return render(request,"blog/edit-blog.html",context) 
+
+# django delete blog
 def deleteBlogPage(request,id):
     # delect blog by id
     obj = Post.objects.get(id=id)
@@ -270,3 +298,98 @@ def deleteBlogPage(request,id):
     # return messages on status bar
     messages.warning(request,"Succesffully deleted!")
     return redirect("/manage-blogs")
+    
+# Your Profile
+def handleApiProfile(request,id):
+    userData ={}
+    user = User.objects.get(pk=id)
+    userData={"fName":user.first_name,'lName':user.last_name,"email":user.email}
+    return JsonResponse(userData) 
+
+# button update profile
+def apiUpdateProfile(request):
+    data = request.POST
+    id = data.get("id")
+    userObj = User.objects.get(pk=id)
+    userObj.first_name=data.get("fName")
+    userObj.last_name=data.get("lName")
+    userObj.email=data.get("email")
+    userObj.save()
+    user = User.objects.get(pk=id)
+    userData={"fName":user.first_name,'lName':user.last_name,"email":user.email}
+    return JsonResponse(userData)
+
+# change password
+def handleApiChangePassword(request):
+    statusData ={"status":1}
+    data = request.POST
+    id = data.get("id")
+    user = User.objects.get(pk=id)
+    user.set_password(data.get("password"))
+    user.save()  
+    return JsonResponse(statusData)
+
+# MyBlogs
+def handleApiManageBlogs(request,id):
+    user = User.objects.get(pk=id)
+    # get blog created by current user  an
+    statusData = {}
+    blogs = Post.objects.filter(author=user).all()
+    for blog in blogs:
+        image = blog.image
+        
+        statusData[blog.id] = {"title":blog.title,"id":blog.id,"excerpt":blog.excerpt,"media":str(image)}
+    return JsonResponse(statusData)
+
+# add new blog
+def addApiBlogPage(request):
+    data = request.POST
+    # myfile returns all data of image
+    myfile = request.FILES['file']
+    # then call django method FileSystemStorage() to upload files
+    fs = FileSystemStorage()
+    # saved fs file in fileName by calling fs.save method//name is the name picture displayed on blog output
+    fileName = fs.save(myfile.name,myfile)
+    user = User.objects.get(pk=data.get("id"))
+    # created a new blog using Post.objects and passing all parameters
+    Post.objects.create(title=data.get("title"),content=data.get("content"),excerpt=data.get("excerpt"),author=user,image=fileName)
+    return JsonResponse({"status":1})
+
+# edit blog
+def editApiBlogPage(request):
+    data = request.POST
+    # myfile returns all data of image
+    fileName =""
+    id = data.get("id")
+    # if new image chosen code will render/if no image chosen code will goto obj=post.objects.get(id=id) and will all data except images
+    if request.FILES:
+        myfile = request.FILES['file']
+        # then call django method FileSystemStorage() to upload files
+        fs = FileSystemStorage()
+        # saved fs file in fileName by calling fs.save method//name is the name picture displayed on blog output
+        fileName = fs.save(myfile.name,myfile)
+    obj = Post.objects.get(id=id)
+    # if file name is blank no image chosen
+    # if file name is not blank  then obj.image will not update
+    # all other data will be updated if image is chosen
+    if fileName != "":
+        obj.image = fileName
+    obj.title = data.get("title")
+    obj.content = data.get("content")
+    obj.excerpt = data.get("excerpt")
+    obj.save()
+    return JsonResponse({"status":1})
+def deleteApiBlogPage(request,id):
+    # delect blog by id
+    obj = Post.objects.get(id=id)
+    obj.delete()
+    return JsonResponse({"status":1})
+# get objects by id and store im statusData and rtn json
+
+# getting prepopulated value for the edit blog of titltle, content,excerprt, image
+def handleApiSingleManageBlogs(request,id):
+    statusData = {}
+    blog = Post.objects.get(id=id)
+    image = blog.image
+    statusData = {"title":blog.title,"id":blog.id,"excerpt":blog.excerpt,"content":blog.content,"media":str(image)}
+    return JsonResponse(statusData)

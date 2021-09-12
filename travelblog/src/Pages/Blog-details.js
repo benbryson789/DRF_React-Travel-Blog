@@ -3,36 +3,34 @@ import { useParams } from 'react-router-dom';
 import Footer from './Footer';
 import NavBar from './NavBar';
 import Sidebar from './Sidebar';
-
-//const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com"
-const BACKENDURLLOCAL = "http://localhost:8000/api/?format=json"
-
-
+import { API_PATH } from './API';
 const BlogDetails = () =>{
     const[object,setObject] = useState({});
     const params = useParams();
     console.log('params',params);
     useEffect(()=>{
-        fetch(BACKENDURLLOCAL + '/api/'+params.slug+'/?format=json')
+        fetch(API_PATH + 'api/'+params.slug+'/?format=json')
         .then(response=> response.json())
+// get blogs is useState
         .then(data=>{ setObject(data)})
         .catch(err=> alert("API Error"))
+// gets blog id by parameter//related const params
     },[params]);
 return (
     <>
     <NavBar />
-    <div class="container">
-  <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left  top">
-      <div class="card-body">
+    <div className="container">
+  <div className="row">
+    <div className="col-md-8 card mb-4  mt-3 left  top">
+      <div className="card-body">
         <h1>{ object.title }</h1>
         {/* text muted means duller printed information in image boxes */}
-        <p class=" text-muted">{ object.author } | { object.created_on }</p>
+        <p className=" text-muted">{ object.author } | { object.created_on }</p>
         {/* card text encapsulates info in box of image */}
-        <p class="card-text ">{ object.content  }</p>
-        <p class="card-text ">{ object.excerpt  }</p>
-        <p class="card-text ">{ object.published }</p>
-        <p class="card-text "><img src={ object.image  } alt=""/></p>
+        <p className="card-text ">{ object.content  }</p>
+        <p className="card-text ">{ object.excerpt  }</p>
+        <p className="card-text ">{ object.published }</p>
+        <p className="card-text "><img src={ object.image  } alt=""/></p>
 
 
       </div>

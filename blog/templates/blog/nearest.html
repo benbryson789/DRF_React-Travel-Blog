@@ -1,39 +1,50 @@
 {% extends 'blog/base.html' %} {% block content %}
-<div>
+<div class="container">
+                <div class="row">
+                <div class="col-md-4">
+                    <div class="card my-4">
+                            <h5 class="card-header">Search Your Nearest Places</h5>
+                        <div class="card-body">
 <form action= "" method="post">
-    <p>
+    <p class="form-group">
         <label>Search Type</label>
-        <select name="type">
+        <select name="type"  class='form-control'>
             <option value="restaurant">Restaurant</option>
             <option value="school">School</option>
             <option value="hospital">Hospital</option>
 
         </select>
     </p>
-    <p>
+    <p class="form-group">
         <label>Radius</label>
-        <select name="radius">
+        <select name="radius"  class='form-control'>
             <option value="10">10</option>
             <option value="100">100</option>
             <option value="500">500</option>
             <option value="1000">1000</option>
         </select>
     </p>
-    <p>
+    <p class="form-group">
         <label>Location</label>
-        <input type="text" name="location" required/>
+        <input type="text"  class='form-control' name="location" required/>
         </p>
-        <p>
+        <p class="form-group">
             <label>Keyword</label>
-            <input type="text" name="keyword"/>
+            <input class='form-control' type="text" name="keyword"/>
             </p>
             {% csrf_token %}
-            <p><button type="submit">Search</button></p>
+            <p class="form-group"><button type="submit" class="btn btn-primary">Search</button></p>
 </form>
+</div>
+</div>
+</div>
+   <div class="col-md-8 ">
+            <h2>Search Result: </h2>
 {% for place in places %}
 <b>{{place}}</b><br/>
 {% endfor %}
+</div>
 
-
+    </div>
     </div>
     {% endblock %}

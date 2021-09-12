@@ -3,16 +3,13 @@ import { useHistory } from 'react-router-dom';
 import Footer from './Footer';
 import NavBar from './NavBar';
 import Sidebar from './Sidebar';
-
-//const BACKENDURL = "https://protected-scrubland-37279.herokuapp.com/api/?format=json";
-const BACKENDURLLOCAL = "http://localhost:8000/api/?format=json"
-
+import { API_PATH } from './API';
 const Home = () =>{
     const[blogList,setBlogList] = useState([]);
     const history = useHistory();
     // const[filter,setFilter] = useState(false);
     useEffect(()=>{
-        fetch(BACKENDURLLOCAL)
+        fetch(API_PATH+"api/?format=json")
         .then(response=> response.json())
         .then(data=>{ setBlogList(data)})
         .catch(err=> alert("API Error"))
@@ -20,35 +17,36 @@ const Home = () =>{
 return (
     <>
     <NavBar />
-    <header class="masthead">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class=" col-md-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Travel Blog </h3>
-                    <p class="text-light">I love traveling As much as you do..! &nbsp
+    <header className="masthead">
+    <div className="overlay"></div>
+    <div className="container">
+        <div className="row">
+            <div className=" col-md-8 col-md-10 mx-auto">
+                <div className="site-heading">
+                    <h3 className=" site-heading my-4 mt-3 text-white"> Welcome to my awesome Travel Blog </h3>
+                    <p className="text-light">I love traveling As much as you do..! &nbsp
                     </p>
                 </div>
             </div>
         </div>
     </div>
 </header>
-<div class="container">
-    <div class="row">
+<div className="container">
+    <div className="row">
     
-        <div class="col-md-8 mt-3 left">
+        <div className="col-md-8 mt-3 left">
             {/* looping thru post by index like 0,1,3,4 etc */}
             {blogList.map((post,index)=>(
-            <div class="card mb-4" key={index}>
-                <div class="row">
-                    <div class="col-md-4"> <img src={ post.image  } alt=""/></div><div class="col-md-8">
-                <div class="card-body">
-                    <h2 class="card-title">{post.title}</h2>
-                    <p class="card-text text-muted h6">{post.author } | { post.published} </p>
-                    <p class="card-text">{post.excerpt}</p>
+            <div className="card mb-4" key={index}>
+                <div className="row">
+                    <div className="col-md-4"> <img src={ post.image  } alt=""/></div><div className="col-md-8">
+                <div className="card-body">
+                    <h2 className="card-title">{post.title}</h2>
+                    <p className="card-text text-muted h6">{post.author } | { post.published} </p>
+                    <p className="card-text">{post.excerpt}</p>
                     {/* click read more button view more info about post */}
-                    <a href="/" onClick={(e)=>{e.preventDefault(); history.push("/"+post.id); }} class="btn btn-primary">Read More &rarr;</a>
+                    {/* history push is calling slug route in app.js */}
+                    <a href="/" onClick={(e)=>{e.preventDefault(); history.push("/"+post.id); }} className="btn btn-primary">Read More &rarr;</a>
                 </div>
                 </div>
                 </div>
