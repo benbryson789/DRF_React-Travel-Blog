@@ -142,7 +142,9 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
+# is for server path to store files in the computer
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# is the reference url for browser to access the files over Http
 MEDIA_URL   = '/media/'
 #
 """ REST_FRAMEWORK = {

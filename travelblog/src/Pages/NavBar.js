@@ -6,7 +6,7 @@ return (
     <>
     <nav className="navbar navbar-expand-lg navbar-light bg-light shadow" id="mainNav">
             <div className="container-fluid">
-                <a className="navbar-brand" href="/" onClick={(e)=>{e.preventDefault(); history.push('/');}}>React central</a>
+                <a className="navbar-brand" href="/" onClick={(e)=>{e.preventDefault(); history.push('/');}}>Deb's Travel Blog</a>
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>

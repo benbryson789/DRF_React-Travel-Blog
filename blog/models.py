@@ -1,23 +1,25 @@
 from django.db import models
+# post assciated with user
 from django.contrib.auth.models import User
+# timestamp post
 from django.utils import timezone
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.CharField(max_length=100,default="0")
     
-    #string rep that idenditfies data item returned from datatbase which is name
+    #default string rep that idenditfies item  shown in datatbase which is name
     def  __str__(self):
         return self.name
 
-#if delete category delete all posts in category
-#Protect used if anyone tries to delete any category it will have no effect on the posts
-#will not allow you to delete category with .Protect
+
+
 class Post(models.Model):
 
-    #custom model manager that by default filters data  by post  that are publiished
-    #instead of running objects all on datat when making a query can run  post objects which will use filter and  get
+    #post objects custom model manager that by default returns data from database and outputs data
+    # default instead of running objects all on data when making a query can run  post objects which will  filter and  get
     #published posts
+    # if post flagged as published will return published post
     class PostObjects(models.Manager):
         def get_queryset(self) :
             return super().get_queryset().filter(status="published")
@@ -28,21 +30,22 @@ class Post(models.Model):
         ('pending', "Pending"),
     )
 
-
+    #usually if delete category delete all posts in category but with .Protect
+    # .Protect/if delete category it has no effect on the post
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, default=1)
     title = models.CharField(max_length = 250)
     excerpt = models.TextField(null=True)   
     content = models.TextField()
-    #slug is url can be used to slugigy the title to identify each post /used in lieu of id
+    #slug is url can be used to slugify the title to identify each post /used in lieu of id to collect data
     slug = models.SlugField(max_length=250, unique_for_date='published')
     #Image 
     image = models.ImageField(blank = True)
-    #fire off each time a post is createe
+    #fire off each time a post is created/timezone
     published = models.DateTimeField(default=timezone.now)
 
     #if user made a new post then user connected to post
-    #CASCADE means if user deleted then post deleted
+    #CASCADE means if user deleted a post  is deleted
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='blog_posts')
     status = models.CharField(

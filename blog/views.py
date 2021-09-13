@@ -14,7 +14,7 @@ from django.core.files.storage import FileSystemStorage
 # django home page function
 def blogList(request):
     context = {}
-    posts = requests.get('http://127.0.0.1:8000/api?format=json');
+    posts = requests.get('http://127.0.0.1:8000/api?format=json')
     context['posts'] = posts.json()
     return render(request,'blog/index.html',context)
 
@@ -25,6 +25,7 @@ def blogList(request):
 #     template_name = 'blog/index.html'
 
 # rendering data of postlist of all blogs
+# displays all of post
 def postlist(request):
     post = Post.objects.all()
     context = {
@@ -40,6 +41,7 @@ def postlist(request):
 #     template_name = 'blog/post_detail.html'
 
 # post detail from blog model/click on read more button
+# read data from the databse, filter, and order it
 def postDetail(request,slug):
     post = Post.objects.get(slug = slug)
     print(post)
@@ -111,6 +113,7 @@ def google_api_callig(request):
         print(result)
         return JsonResponse(result)
 
+# django registration
 def registration(request):
     context = {}
     if request.method == "POST":
@@ -329,7 +332,7 @@ def handleApiChangePassword(request):
     user.save()  
     return JsonResponse(statusData)
 
-# MyBlogs
+# MyBlogs for react
 def handleApiManageBlogs(request,id):
     user = User.objects.get(pk=id)
     # get blog created by current user  an
@@ -355,7 +358,7 @@ def addApiBlogPage(request):
     Post.objects.create(title=data.get("title"),content=data.get("content"),excerpt=data.get("excerpt"),author=user,image=fileName)
     return JsonResponse({"status":1})
 
-# edit blog
+# edit blog for react
 def editApiBlogPage(request):
     data = request.POST
     # myfile returns all data of image
