@@ -43,7 +43,7 @@ def postlist(request):
 # post detail from blog model/click on read more button
 # read data from the databse, filter, and order it
 def postDetail(request,slug):
-    post = Post.objects.get(slug = slug)
+    post = Post.objects.get(id=slug)
     print(post)
     context = {
         "post": post
@@ -108,7 +108,11 @@ def google_api_callig(request):
         url += 'radius='+request.GET.get('radius')+"&"
         url += 'location='+request.GET.get('location')+"&"
         url += 'query='+request.GET.get('keyword')
+        # get method of request module
+        # return response object
         r = requests.get(url)
+        # json method of response object convert
+        #  json format data into python format data
         result = r.json() 
         print(result)
         return JsonResponse(result)
